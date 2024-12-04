@@ -1,6 +1,7 @@
 # M9 UF2 Act1 Daniel Acosta Garcia
 ## Comportament 1
-
+En el primer comportamiento, lo que había que hacer era que dos Fil se ejecutaran de manera simultánea, pero no en un orden específico.
+Lo que he hecho es crear los Fil con el constructor al que le pasó el nombre para el Fil. Los inicios y ellos solos ya se van ejecutando por el run y se van mostrando por pantalla. Cuando termina uno de ellos, el main se muestran por pantalla.
 #### Principal:
 ``` java
 public class Principal {
@@ -30,11 +31,12 @@ public class Fil extends Thread {
 }
 ```
 ### Execusio:
-![alt text](image.png)
-
+![alt text](image-2.png)
 
 ## Comportament 2
-
+En el primer comportamiento, lo que había que hacer era que los dos Fil se ejecutaran de manera no simultánea, ya que se tiene que ejecutar uno y después el otro.
+Lo que he hecho es crear los Fil con el constructor al que le pasó el nombre para el Fil. Los inicios y ellos solos ya se van ejecutando por el run y se van mostrando por pantalla. Cuando termina uno de ellos, el main se muestran por pantalla.
+Los cambios que he hecho en comparación del primero son agregar un setPriority a cada uno de los Fil para que se ejecute primero uno y después el otro gracias al orden de prioridad. 
 ### Principal:
 ``` java
 public class Principal {
@@ -70,7 +72,9 @@ public class Fil extends Thread {
 
 
 ## Comportament 3
-
+En el primer comportamiento, lo que había que hacer era que los dos Fil se ejecutaran de manera simultánea y en un orden específico, cada vez uno cada uno.
+Lo que he hecho es crear los Fil con el constructor al que le pasó el nombre para el Fil. Los inicios y ellos solos ya se van ejecutando por el run y se van mostrando por pantalla. Cuando termina uno de ellos, el main se muestran por pantalla.
+Los cambios que he hecho en comparación del segundo son los setPriority poner el mismo valor para que se ejecuten a la vez en prioridad y poner un sleep en el fichero de Fil para que cuando se vaya a sleep una se ponga a ejecutarse, la otra de esta manera va haciendo de manera continua. 
 ### Principal:
 ``` java
 public class Principal {
