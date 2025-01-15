@@ -1,36 +1,51 @@
 import java.util.Random;
-import java.util.Scanner;
 
-public class Motor extends Thread {
-    private int potencia = 0;
-    private Random random = new Random();
-    public Motor(int potencia) {
-        this.potencia = potencia;
+public class Motor extends Thread{
+    private int potenciaActual = 0;
+    private int potenciaObjectiu = 0;
+    public int id = 0;
+
+    public Motor(int num){
+        id = num;
     }
-    @Override
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            int num = Integer.parseInt(scanner.nextLine());
-            long randomValue = random.nextInt(2000) + 1;
-            System.out.println("Motor "+(potencia > num ? "Decre." : "Incre." )+" Objectiu:"+num+" Actual: " + potencia);
-            if (potencia > num){
-                potencia --;
+    public void setPotencia(int p) {
+        if (p < 0 || p > 10) {
+            System.out.println("Potència no vàlida. Ha de ser entre 0 i 10.");
+            return;
+        }
+        potenciaObjectiu = p;
+    }
+    public void run(){
+        Random random = new Random();
+        while (true){
+            while (potenciaActual != potenciaObjectiu) {
+                long randomvalue = random.nextInt(2000) + 1;
+                if (potenciaActual < potenciaObjectiu) {
+                    System.out.println("Motor " + id + ": Incre. Objectiu: " + potenciaObjectiu + " Actual: " + potenciaActual);
+                    potenciaActual++;
+                } else {
+                    System.out.println("Motor " + id + ": Decre. Objectiu: " + potenciaObjectiu + " Actual: " + potenciaActual);
+                    potenciaActual--;
+                }
                 try {
-                    Thread.sleep(randomValue);
+                    Thread.sleep(randomvalue);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }else{
-                potencia ++;
-                try {
-                    Thread.sleep(randomValue);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if(potenciaActual == potenciaObjectiu){
+                    System.out.println("Motor " + id + ": FerRes Objectiu: " + potenciaObjectiu + " Actual: " + potenciaActual);
                 }
             }
-            if(potencia == 0){break;}
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(potenciaActual == 0){break;}
         }
-        scanner.close();
+    }
+
+    public int getPotenciaActual() {
+        return potenciaActual;
     }
 }
