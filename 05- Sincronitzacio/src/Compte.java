@@ -4,6 +4,7 @@ public class Compte {
     public Compte getCompte() {
         return compte;
     }
+    
     public float getSaldo() {
         return saldo;
     }
