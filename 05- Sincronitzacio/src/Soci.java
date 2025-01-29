@@ -2,34 +2,30 @@ import java.util.Random;
 
 public class Soci extends Thread {
     private Compte compte;
-    private float saldo;
-    private double aportacio = 10.0;
-    private long esperaMax = 100;
+    private float aportacio = 10.0f;
+    private int esperaMax = 100;
+    private Random random = new Random();
     private int maxAnys = 10;
-    private Random random;
 
-    public Soci() {
-        this.compte = Compte.creaCompte();
-        this.random = new Random();
+    public Soci(Compte compte) {
+        this.compte = compte;
     }
 
-    public double getCompte() {
-        return compte.getSaldo();
+    public Compte getCompte() {
+        return compte;
     }
 
     @Override
     public void run() {
-        for (int any = 1; any <= maxAnys; any++) {
+        for (int any = 0; any < maxAnys; any++) {
             for (int mes = 0; mes < 12; mes++) {
                 if (mes % 2 == 0) {
-                    saldo += aportacio;
-                    System.out.println(saldo);
+                    compte.ingresar(aportacio);
                 } else {
-                    saldo -= aportacio;
-                    System.out.println(saldo);
+                    compte.retirar(aportacio);
                 }
                 try {
-                    Thread.sleep(random.nextLong(esperaMax));
+                    Thread.sleep(random.nextInt(esperaMax));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

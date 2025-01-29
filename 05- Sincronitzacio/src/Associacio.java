@@ -1,26 +1,25 @@
 public class Associacio {
-    private int numSocis = 1000;
-    private Soci[] socis;
-    public Associacio() {
-        socis = new Soci[numSocis];
-        for (int i = 0; i < numSocis; i++) {
-            socis[i] = new Soci();
-        }
-    }
+    private static final int numSocis = 1000;
+    private Soci[] socis = new Soci[numSocis];
+    private Compte compte;
 
-    public static void main(String[] args) {
-        Associacio associacio = new Associacio();
-        associacio.iniciaCompteTempsSocis();
-        associacio.mostraBalancComptes();
+    public Associacio() {
+        this.compte = Compte.getInstance();
+        for (int i = 0; i < numSocis; i++) {
+            socis[i] = new Soci(compte);
+        }
     }
 
     public void iniciaCompteTempsSocis() {
-        for (int i = 0; i < numSocis; i++) {
-            socis[i].start();
+        for (Soci soci : socis) {
+            soci.start();
         }
-        for (int i = 0; i < numSocis; i++) {
+    }
+
+    public void esperaPeriodeSocis() {
+        for (Soci soci : socis) {
             try {
-                socis[i].join();
+                soci.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -28,11 +27,13 @@ public class Associacio {
     }
 
     public void mostraBalancComptes() {
-        double num = 0;
-        for (int i = 0; i < numSocis; i++) {
-            num = num + socis[i].getCompte();
-            // System.out.println("Soci " + (i+1) + " - Saldo: " + socis[i].getCompte());
-        }
-        System.out.println("Saldo total: " + num);
+        System.out.println("Saldo final del compte: " + compte.getSaldo());
+    }
+
+    public static void main(String[] args) {
+        Associacio associacio = new Associacio();
+        associacio.iniciaCompteTempsSocis();
+        associacio.esperaPeriodeSocis();
+        associacio.mostraBalancComptes();
     }
 }

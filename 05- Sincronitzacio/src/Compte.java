@@ -1,26 +1,27 @@
 public class Compte {
+    private static Compte instance = null;
     private float saldo;
-    private static Compte compte;
-    public Compte getCompte() {
-        return compte;
+
+    private Compte() {
+        this.saldo = 0.0f;
     }
-    
+
+    public static Compte getInstance() {
+        if (instance == null) {
+            instance = new Compte();
+        }
+        return instance;
+    }
+
+    public void ingresar(float cantidad) {
+        saldo += cantidad;
+    }
+
+    public void retirar(float cantidad) {
+        saldo -= cantidad;
+    }
+
     public float getSaldo() {
         return saldo;
-    }
-    public void setSaldo(float saldo) {
-        this.saldo = saldo;
-    }
-    public static Compte creaCompte(){
-        if(compte == null){
-            compte = new Compte();
-        }
-        return compte;
-    }
-    private Compte(){
-        setSaldo(0f);
-    }
-    private Compte(float saldo){
-        setSaldo(saldo);
     }
 }
