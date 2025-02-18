@@ -14,9 +14,15 @@ public class Taula {
         }
     }
     public void showTaula() {
-
+        for (int i = 0; i < filosofs.length; i++) {
+            System.out.println("Comensal: "+filosofs[i].getNom()+" esq: "+filosofs[i].getForquillaEsquerra().getNumero()+" dret: "+filosofs[i].getForquillaDreta().getNumero());
+        }
+        System.out.println("-----------------------------");
     }
     public void cridarATaula() {
+        for (Filosof filosof : filosofs) {
+            new Thread(filosof).start();
+        }
     }
     public static void main(String[] args) {
         Taula taula = new Taula(4);
