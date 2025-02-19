@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Filosof implements Runnable {
+public class Filosof extends Thread {
     private String nom;
     private Forquilla forquillaEsquerra;
     private Forquilla forquillaDreta;
