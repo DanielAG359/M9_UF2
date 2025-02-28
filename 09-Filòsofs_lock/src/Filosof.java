@@ -12,7 +12,6 @@ public class Filosof extends Thread {
         this.nom = nom;
         this.forquillaEsquerra = esquerra;
         this.forquillaDreta = dreta;
-        this.fiGana = (int) (System.currentTimeMillis() / 1000);
     }
     @Override
     public void run() {
@@ -24,6 +23,9 @@ public class Filosof extends Thread {
     public void menjar() {
         resetGana();
         agafarForquilles();
+        if (fiGana == 0){
+            fiGana = iniciGana;
+        }
         calculaGana();
         System.out.println(nom + " menja amb gana " + gana);
         try {
@@ -33,7 +35,7 @@ public class Filosof extends Thread {
             e.printStackTrace();
         }
         fiGana = (int) (System.currentTimeMillis())/ 1000;
-        gana = fiGana - iniciGana;
+        gana = iniciGana - fiGana;
         System.out.println(nom + " ha acabat de menjar");
         deixarForquilles();
     }
@@ -77,9 +79,7 @@ public class Filosof extends Thread {
         iniciGana = (int) (System.currentTimeMillis())/ 1000;
     }
     public void calculaGana() {
-        System.out.println("Fi gana: "+ fiGana);
-        System.out.println("Inici gana: "+ iniciGana);
-        this.gana = fiGana - iniciGana;
+        this.gana =  iniciGana - fiGana;
     }
     public String getNom() {
         return nom;
