@@ -7,6 +7,41 @@ public class Barberia {
     private final Object condBarber;
     private static Barberia instancia;
 
+    public static void main(String[] args) {
+        Barberia.crearInstancia(3);
+        Barberia barberia = Barberia.getInstancia();
+        Barber barber = new Barber("Pepe", barberia);
+        barber.start();
+        for (int i = 1; i <= 10; i++) {
+            final int id = i;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500 * id);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Client client = new Client(id);
+                barberia.entrarClient(client);
+            }).start();
+        }
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (int i = 11; i <= 20; i++) {
+            final int id = i;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500 * id);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Client client = new Client(id);
+                barberia.entrarClient(client);
+            }).start();
+        }
+    }
     public Barberia(int maxCadires) {
         this.maxCadires = maxCadires;
         this.salaEspera = new LinkedList<>();
